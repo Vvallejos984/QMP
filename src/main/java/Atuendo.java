@@ -1,33 +1,36 @@
 import Excepciones.CategoriaException;
 
+import java.util.List;
+
 public class Atuendo {
-  private Prenda superior;
-  private Prenda inferior;
+  private List<Prenda> superior;
+  private List<Prenda> inferior;
   private Prenda calzado;
-  private Prenda accesorio;
+  private List<Prenda> accesorio;
 
-  public Atuendo(Prenda superior, Prenda inferior, Prenda calzado, Prenda accesorio) throws CategoriaException {
+  Atuendo(List<Prenda> superior, List<Prenda> inferior, Prenda calzado, List<Prenda> accesorio) throws CategoriaException {
 
-    if(superior.categoria()!="Superior")
-      throw new CategoriaException(superior.getNombre(),"prenda superior");
-    else
-      this.superior=superior;
+    for(Prenda prenda :superior){
+      if(prenda.categoria()!=Categoria.SUPERIOR)
+        throw new CategoriaException(prenda.getNombre(),"prenda superior");
+    }
+    this.superior=superior;
 
-    if(inferior.categoria()!="Inferior")
-      throw new CategoriaException(inferior.getNombre(),"prenda inferior");
-    else
-      this.inferior=inferior;
-    if(calzado.categoria()!="Calzado")
+    for(Prenda prenda :inferior){
+      if(prenda.categoria()!=Categoria.INFERIOR)
+        throw new CategoriaException(prenda.getNombre(),"prenda inferior");
+    }
+    this.inferior=inferior;
+
+    if(calzado.categoria()!=Categoria.CALZADO)
       throw new CategoriaException(calzado.getNombre(),"calzado");
     else
       this.calzado=calzado;
-    if(accesorio.categoria()!="Accesorio" && accesorio!=null)
-      throw new CategoriaException(accesorio.getNombre(),"accesorio");
-    else
-      this.accesorio=accesorio;
-  }
 
-  public Atuendo(Prenda superior, Prenda inferior, Prenda calzado) throws CategoriaException {
-    this(superior,inferior,calzado,null);
+    for(Prenda prenda :accesorio){
+      if(prenda.categoria()!=Categoria.ACCESORIO)
+        throw new CategoriaException(prenda.getNombre(),"accesorio");
+    }
+      this.accesorio=accesorio;
   }
 }

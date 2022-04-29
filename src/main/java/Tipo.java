@@ -1,12 +1,13 @@
 public class Tipo {
   private String nombre;
-  private String categoria;
+  private Categoria categoria;
 
-  public Tipo(String nombre, String categoria){
+  Tipo(String nombre, Categoria categoria){
     this.nombre=nombre;
     this.categoria=categoria;
   }
 
   public String getNombre(){return nombre;}
-  public String getCategoria(){return categoria;}
+  public Categoria getCategoria(){return categoria;}
+
 }
