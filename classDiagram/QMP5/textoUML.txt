@@ -1,0 +1,113 @@
+@startuml
+
+class BorradorPrenda{
+  Tipo tipo
+  Material material
+  Color colorPrincipal
+  Color colorSecundario
+  Trama trama
+  Prenda crearPrenda()
+}
+
+enum Categoria{
+  SUPERIOR,
+  INFERIOR,
+  CALZADO,
+  ACCESORIO
+}
+
+class Color{
+  int red
+  int green
+  int blue
+}
+
+class EstadoPropuesta{
+  PENDIENTE,
+  RECHAZADA,
+  ACEPTADA
+}
+
+class Guardarropa{
+  List<Prenda> prendas
+  List<Propuesta> propuestas
+  agregarPrenda(Prenda)
+  quitarPrenda(Prenda)
+  agregarPropuesta(Propuesta)
+  List<Propuesta> propuestasPendientes()
+}
+
+enum Material{
+  ALGODON,
+  LANA,
+  CUERO
+}
+
+class Prenda{
+  Tipo tipo
+  Material material
+  Color colorPrincipal
+  Color colorSecundario
+  Trama trama
+}
+
+abstract Propuesta{
+  EstadoPropuesta estado
+  Prenda prenda
+  realizarAceptacionEn(Guardarropa)
+  realizarDeshacerEn(Guardarropa)
+  aceptarEn(Guardarropa)
+  deshacerEn(Guardarropa)
+  rechazar()
+}
+
+class PropuestaAgregar extends Propuesta{
+  realizarAceptacionEn(Guardarropa)
+  realizarDeshacerEn(Guardarropa)
+}
+
+class PropuestaQuitar extends Propuesta{
+  realizarAceptacionEn(Guardarropa)
+  realizarDeshacerEn(Guardarropa)
+}
+
+class Tipo{
+  String nombre
+  Categoria categoria
+}
+
+enum Trama{
+  LISA,
+  RAYADA,
+  LUNARES,
+  CUADROS,
+  ESTAMPADO
+}
+
+class Usuario{
+  List<Guardarropa> listaGuardarropas
+  agregarGuardarropa(Guardarropa)
+  quitarGuardarropa(Guardarropa)
+}
+
+BorradorPrenda .right. Prenda
+BorradorPrenda --> "1" Tipo
+BorradorPrenda --> "1-2" Color
+BorradorPrenda --> "1" Trama
+BorradorPrenda --> "1" Material
+
+Prenda --> "1" Tipo
+Prenda --> "1-2" Color
+Prenda --> "1" Trama
+Prenda --> "1" Material
+
+Propuesta --> "1" EstadoPropuesta
+
+Guardarropa --> "*" Prenda
+Guardarropa --> "*" Propuesta
+
+Usuario --> "*" Guardarropa
+
+Tipo --> "1" Categoria
+
+@enduml
